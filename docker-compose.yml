@@ -10,14 +10,16 @@ services:
     ports:
       - "1880:1880"
     networks:
-      - node-red-net
+      - backend
     volumes:
-      - node-red-data
+      - ./data/node-red:/data
   # Define an InfluxDB service
   influxdb:
     image: "influxdb:${INFLUXDB_VERSION}"
     container_name: tracker-influxdb
     restart: unless-stopped
+    networks:
+      - backend    
     volumes:
       - ./data/influxdb:/var/lib/influxdb
     ports:
@@ -27,6 +29,9 @@ services:
     image: "chronograf:${CRONOGRAF_VERSION}"
     container_name: tracker-chronograf
     restart: unless-stopped
+    networks:
+      - backend
+      - frontend
     environment:
       INFLUXDB_URL: http://influxdb:8086
     ports:
@@ -38,6 +43,9 @@ services:
     image: "grafana/grafana:${GRAFANA_VERSION}"
     container_name: tracker-grafana
     restart: unless-stopped
+    networks:
+      - backend
+      - frontend
     ports:
       - "3000:3000"
     volumes:
@@ -46,8 +54,8 @@ services:
       - grafana-data:/var/lib/grafana 
 
 networks:
-  node-red-net:
+  backend:
+  frontend:
 
 volumes:
-  node-red-data:
   grafana-data:
