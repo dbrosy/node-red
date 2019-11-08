@@ -31,6 +31,19 @@ services:
       - "8888:8888"
     links:
       - influxdb
+  # Define a Telegraf service
+  telegraf:
+    image: "telegraf:${TELEGRAF_VERSION}"
+    container_name: tracker-telegraf
+    restart: unless-stopped
+    volumes:
+      - ./config/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    links:
+      - influxdb
+    ports:
+      - "8092:8092/udp"
+      - "8094:8094"
+      - "8125:8125/udp"
   # Define a service using Grafana
   grafana:
     image: "grafana/grafana:${GRAFANA_VERSION}"
