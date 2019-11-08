@@ -10,14 +10,14 @@ services:
     ports:
       - "1880:1880"
     volumes:
-      - node-red_data:/data
+      - node-red-data:/data
   # Define an InfluxDB service
   influxdb:
     image: "influxdb:${INFLUXDB_VERSION}"
     container_name: tracker-influxdb
     restart: unless-stopped
     volumes:
-      - influxdb_data:/var/lib/influxdb
+      - influxdb-data:/var/lib/influxdb
     ports:
       - "8086:8086"   
   # Define a Chronograf service
@@ -40,10 +40,10 @@ services:
       - "3000:3000"
     volumes:
       # - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
-      - ./config/grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
-      - grafana_data:/var/lib/grafana
+      - ./config/grafana/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
+      - grafana-data:/var/lib/grafana
 
 volumes:
-  grafana_data:
-  node-red_data:
-  influxdb_data:
+  grafana-data:
+  node-red-data:
+  influxdb-data:
