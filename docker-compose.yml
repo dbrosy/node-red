@@ -38,6 +38,8 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    depend_on:
+      - influxdb
     volumes:
       # - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./config/grafana/provisioning/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
