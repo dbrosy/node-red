@@ -12,7 +12,7 @@ services:
     networks:
       - backend
     volumes:
-      - ./data/node-red:/data
+      - node-red_data:/data
   # Define an InfluxDB service
   influxdb:
     image: "influxdb:${INFLUXDB_VERSION}"
@@ -21,7 +21,7 @@ services:
     networks:
       - backend    
     volumes:
-      - ./data/influxdb:/var/lib/influxdb
+      - influxdb_data:/var/lib/influxdb
     ports:
       - "8086:8086"   
   # Define a Chronograf service
@@ -51,11 +51,13 @@ services:
     volumes:
       # - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./config/grafana/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml:ro
-      - grafana-data:/var/lib/grafana 
+      - grafana_data:/var/lib/grafana 
 
 networks:
   backend:
   frontend:
 
 volumes:
-  grafana-data:
+  grafana_data:
+  node-red_data:
+  influxdb_data:
