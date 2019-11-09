@@ -7,6 +7,7 @@ services:
     container_name: tracker-node-red
     environment:
       - TZ=Australia/Sydney
+      - NODE_RED_ENABLE_PROJECTS=true
     ports:
       - "1880:1880"
     volumes:
