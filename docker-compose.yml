@@ -5,6 +5,7 @@ services:
   node-red:
     image: nodered/node-red:latest
     container_name: tracker-node-red
+    restart: unless-stopped
     environment:
       - TZ=Australia/Sydney
       - NODE_RED_ENABLE_PROJECTS=true
