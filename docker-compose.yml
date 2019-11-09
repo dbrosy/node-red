@@ -11,7 +11,8 @@ services:
     ports:
       - "1880:1880"
     volumes:
-      - node-red-data:/data
+      #- node-red-data:/data
+      - ./data/node-red:/data
   # Define an InfluxDB service
   influxdb:
     image: "influxdb:${INFLUXDB_VERSION}"
