@@ -1,0 +1,20 @@
+version: "3.7"
+
+services:
+# Define an node-red service
+  node-red:
+    image: nodered/node-red:latest
+    container_name: tracker-node-red
+    restart: unless-stopped
+    environment:
+      - TZ=Australia/Sydney
+      - NODE_RED_ENABLE_PROJECTS=true
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red-data:/data
+      #- "./data/node-red:/data" # causes issues on rpi4
+
+volumes:
+  node-red-data:
+    external: true
